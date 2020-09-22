@@ -2,7 +2,7 @@
   "name": "nl-test",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://warrier-97.github.io/nl-test",
+  "homepage": "http://warrier-97.github.io/nl-test/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -24,7 +24,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "yarn run build",
+    "predeploy": "yarn deploy:clean & yarn build",
+    "deploy:clean": "gh-pages clean",
     "deploy": "gh-pages -d build",
     "format": "prettier --write './**/*.{ts,tsx,js,json}'"
   },

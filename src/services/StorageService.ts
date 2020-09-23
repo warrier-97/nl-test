@@ -8,8 +8,8 @@ export enum StorageKeys {
 class StorageService {
   private secret: string = 'secret';
 
-  public get = async <T>(key: string): Promise<T | null> => {
-    const value: string | null = await Storage.getItem(key);
+  public get = <T>(key: string): T | null => {
+    const value: string | null = Storage.getItem(key);
     if (!value) {
       return null;
     }
@@ -19,9 +19,9 @@ class StorageService {
     return decryptedData as T;
   };
 
-  public set = async <T>(key: string, data: T): Promise<void> => {
+  public set = <T>(key: string, data: T): void => {
     const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(data), this.secret).toString();
-    await Storage.setItem(key, encryptedData);
+    Storage.setItem(key, encryptedData);
   };
 }
 

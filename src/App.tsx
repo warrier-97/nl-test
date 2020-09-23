@@ -1,20 +1,24 @@
 import React from 'react';
+import { CardContainer } from 'components/CardContainer';
 import { Repository } from 'domain/repositories/Repository';
+import { Item } from 'domain/models/Item';
 
-export class App extends React.PureComponent<{}, {}> {
+interface IState {
+  stories: Item[];
+}
+
+export class App extends React.PureComponent<{}, IState> {
+  public state = {
+    stories: [],
+  };
+
   public componentDidMount = async (): Promise<void> => {
-    const response = await Repository.getStories();
-    console.log(response);
+    const stories = await Repository.getStories();
+    this.setState({ stories });
   };
 
   public render = (): React.ReactNode => {
-    return (
-      <>
-        <p>Hey There!</p>
-        <span style={{ color: 'tomato' }}>
-          <i className="fa fa-heart" />
-        </span>
-      </>
-    );
+    const { stories } = this.state;
+    return <CardContainer stories={stories} />;
   };
 }

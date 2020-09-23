@@ -1,24 +1,22 @@
-import React from 'react';
-import { CardContainer } from 'components/CardContainer';
+import React, { useEffect, useState, memo } from 'react';
 import { Repository } from 'domain/repositories/Repository';
+import { CardContainer } from 'components/CardContainer/CardContainer';
 import { Item } from 'domain/models/Item';
 
-interface IState {
-  stories: Item[];
-}
+const App = (): React.ReactElement => {
+  const [stories, setStories] = useState<Item[]>([]);
 
-export class App extends React.PureComponent<{}, IState> {
-  public state = {
-    stories: [],
-  };
+  useEffect(() => {
+    const getStories = async (): Promise<void> => {
+      const stories = await Repository.getStories();
+      setStories(stories);
+    };
 
-  public componentDidMount = async (): Promise<void> => {
-    const stories = await Repository.getStories();
-    this.setState({ stories });
-  };
+    getStories().then();
+  }, []);
 
-  public render = (): React.ReactNode => {
-    const { stories } = this.state;
-    return <CardContainer stories={stories} />;
-  };
-}
+  return <CardContainer stories={stories} />;
+};
+
+const memoizedComponent = memo(App);
+export { memoizedComponent as App };

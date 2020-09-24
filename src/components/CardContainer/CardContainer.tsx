@@ -20,7 +20,7 @@ const CardContainer = ({ stories }: IProps): React.ReactElement => {
       setFavorite(updatedSet)
     }
 
-    setFavorite([...favorites, id]);
+    setFavorite(updatedSet);
     StorageService.set<string[]>(StorageKeys.Favourites, updatedSet);
   };
 

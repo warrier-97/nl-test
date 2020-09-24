@@ -17,7 +17,6 @@ const CardContainer = ({ stories }: IProps): React.ReactElement => {
 
     if(favorites.includes(id)) {
       updatedSet = favorites.filter((item) => item !== id);
-      setFavorite(updatedSet)
     }
 
     setFavorite(updatedSet);
